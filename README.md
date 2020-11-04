@@ -27,11 +27,9 @@ Some of the data cleaning measure we took include, removing all away games as we
 ### Visualizations
 
 <img src="https://github.com/ykfarhan/forecasting-nymets-attendance/blob/main/Visualizations/weekend_night_games.png">
-fronsfhri
 <img src="https://github.com/ykfarhan/forecasting-nymets-attendance/blob/main/Visualizations/attendance_x_games_behind.png">
 <img src="https://github.com/ykfarhan/forecasting-nymets-attendance/blob/main/Visualizations/avg_attendance_by_team.png">
 <img src="https://github.com/ykfarhan/forecasting-nymets-attendance/blob/main/Visualizations/avg_attendance_daily.png">
-<img src="https://github.com/ykfarhan/forecasting-nymets-attendance/blob/main/Visualizations/avg_attendance_month.png">
 
 ### Queries
 ```
@@ -71,8 +69,19 @@ Our best model overall was the K-Best Linear Regression model. It achieved a mea
 
 <img src="https://github.com/ykfarhan/forecasting-nymets-attendance/blob/main/Visualizations/feature_imp_kbest.png">
 
-## Conclusion
+### Post-Evaluation Analysis
+Looking at the feature co-efficients of our K-best model, we can determine how each feature affects ticket sales.
 
+* Some of our initial analysis from data exploration have been proven right.
+* Weekday games and games played during may and september have a negative effect on attendance.
+* Weekend night games significantly boost tickets sales. As does playing against the Yankees and the Nationals.
+* Games against Cincinnati, Miami and Minnesota result in reduced ticket sales.
+
+## Conclusion
+* We can use the data from the 2020 season to calculate lost revenue from the predicted attendance.
+* Increase prices for weekend-night games and games against popular opponents.
+* Offer reduced prices for weekday games and less popular opponents.
+* Improve on-field performances as negative streak & games behind have an adverse effect on ticket sales.
 
 ### Future Work
 * We can integrate more features for our data such as the weather of that day and in-game stats such number of injured players.
