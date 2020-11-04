@@ -19,7 +19,7 @@ Our data was collected from the [Baseball Reference](https://www.baseball-refere
 
 [`Visualizations/`](https://github.com/ykfarhan/forecasting-nymets-attendance/tree/main/Visualizations): For visualizations created in these notebooks:
 
-[`Presentation_mlb.pdf`](): For the non-technical presentation:
+[`Presentation_mlb.pdf`](https://github.com/ykfarhan/forecasting-nymets-attendance/blob/main/Presentation_mlb.pdf): For the non-technical presentation:
 
 ### Data Cleaning And Exploration
 Some of the data cleaning measure we took include, removing all away games as we only care about the games played the Citi Field in Queens. Then, we added the year value to the date column indicicating which season a game was played in. We imputed missing attendace values and converted the columns _streak_, _games_behind_ & _d/n_ into numeric types. Furthermore, we engineered new features from the _date_, and _opponent_ columns among others.
