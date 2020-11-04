@@ -17,14 +17,21 @@ Our data was collected from the [Baseball Reference](https://www.baseball-refere
 
 [`time_series_mlb.ipynb`](https://github.com/ykfarhan/forecasting-nymets-attendance/blob/main/time_series_mlb.ipynb): For time-series modelling on the cleaned data
 
-[`Visualizations/`](): For visualizations created in these notebooks:
+[`Visualizations/`](https://github.com/ykfarhan/forecasting-nymets-attendance/tree/main/Visualizations): For visualizations created in these notebooks:
 
 [`Presentation_mlb.pdf`](): For the non-technical presentation:
 
 ### Data Cleaning And Exploration
-Some of the data cleaning measure we took include, removing all away games as we only care about the games played the Citi Field in Queens. Then, we added the year value to the date column indicicating which season a game was played in. We imputed missing attendace values and converted the columns _streak_, _games_behind_ & _d/n_ into numeric types. Furthermore, we engineered new features from the _date_, and _opponent_ columns.
+Some of the data cleaning measure we took include, removing all away games as we only care about the games played the Citi Field in Queens. Then, we added the year value to the date column indicicating which season a game was played in. We imputed missing attendace values and converted the columns _streak_, _games_behind_ & _d/n_ into numeric types. Furthermore, we engineered new features from the _date_, and _opponent_ columns among others.
 
 ### Visualizations
+
+<img src="https://github.com/ykfarhan/forecasting-nymets-attendance/blob/main/Visualizations/weekend_night_games.png">
+fronsfhri
+<img src="https://github.com/ykfarhan/forecasting-nymets-attendance/blob/main/Visualizations/attendance_x_games_behind.png">
+<img src="https://github.com/ykfarhan/forecasting-nymets-attendance/blob/main/Visualizations/avg_attendance_by_team.png">
+<img src="https://github.com/ykfarhan/forecasting-nymets-attendance/blob/main/Visualizations/avg_attendance_daily.png">
+<img src="https://github.com/ykfarhan/forecasting-nymets-attendance/blob/main/Visualizations/avg_attendance_month.png">
 
 ### Queries
 ```
@@ -36,16 +43,16 @@ Some of the data cleaning measure we took include, removing all away games as we
 
 ## Modelling And Evaluation Process
 
-In order to predict our target, we iterated through two different sets of models. Firstly, we ran a set of linear regression models. We split our cleaned data into train and holdout sets in an 8:2 ratio. After that, we fit our data through iterations of time series models. For this portion, our train-holdout split was done in a 9:1 ratio. We used RMSE scores as our evaluation metric for both sets of data.
+In order to predict our target, we iterated through two different sets of models. Firstly, we ran a set of linear regression models. We split our cleaned data into train and holdout sets in an 9:1 ratio, since we want to predict one season. After that, we fit our data through iterations of time series models. We used RMSE scores as our evaluation metric for both sets of data.
 ### Linear Regression
 We started off with using 50 features for our training data. The K-Best (K=25) model on our original training gave us the best evaluation score. We used this model to predict on our holdout data.
 | Model | RMSE |
 | --- | --- |
-| Dummy Regressor | 5951.45
-| Linear Regression | 4739.15
-| **K-Best** | **4567.23**
-| Polynomial Lasso | 181371.31
-| Polynomial K-Best | 4590.42
+| Dummy Regressor | 5987.98
+| Linear Regression | 4763.06
+| **K-Best** | **4691.09**
+| Polynomial Lasso | 42548.70
+| Polynomial K-Best | 4719.73
 
 ### Time-Series 
 We started off with a simple ARMA model as our baseline and kept increasing the complexity of the models. We used subsets of the best features from our regression model as exogenoues variables for the ARIMAX and SARIMAX models. Although, our RMSE scores on these models were not as good as our regression models.
@@ -57,12 +64,17 @@ We started off with a simple ARMA model as our baseline and kept increasing the 
 | SARIMAX #2 | 5326.13
 | **SARIMAX #5** | **5006.82**
 
-Our best model overall was the K-Best Linear Regression model. It achieved a mean absolute error of ~3000 on the holdout data. That means for every game it predicted attendace for, it was off by about 3000 tickets. Which is 10% of average tickets sold on the entire data set.
+Our best model overall was the K-Best Linear Regression model. It achieved a mean absolute error of ~2000 on the holdout data. That means for every game it predicted attendace for, it was off by about 2000 tickets. Which is 7% of average tickets sold on the entire data set. This may indicate that that our model is better at predicting single seasons than multiples at once, which is why it has better a lot better scores than the training data.
 | Best Model | Holdout RMSE | Holdout MAE |
 | --- | --- | --- |
-| K-Best | 3866 | 2942
+| K-Best | 2947 | 2119
+
+<img src="https://github.com/ykfarhan/forecasting-nymets-attendance/blob/main/Visualizations/feature_imp_kbest.png">
 
 ## Conclusion
 
 
 ### Future Work
+* We can integrate more features for our data such as the weather of that day and in-game stats such number of injured players.
+* We may implement a recurrent neural network model to our data set.
+* We can incorporate the impact of different categories of tickets sold such as premium and non-premium tickets and look at how that impacts revenue.
