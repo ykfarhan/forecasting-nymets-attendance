@@ -6,7 +6,7 @@ Source: [Baseball Reference](https://www.baseball-reference.com/teams/NYM/2020.s
 ## Introduction
 We are living in the age of a global pandemic. Covid-19 has a put a dent in global economy that hasn't been seen in decades. One of the many industries that are suffering is global sports. From Europe to Asia to North America, almost all professional sporting leagues in the world came to a halt in mid 2020. After months of constant delays and uncertainty, top level sporting leagues such the Major League Baseball and the English Premier League resumed with the help of bio-secure bubbles in order to protect playes and staff. Furthermore, teams are playing without the fans to cheer them on at the stadiums. It is a hefty price that sporting institutions around the world are paying.
 
-Major League Baseball is a prime example of how much revenue is being lossed due to the absence of ticket sales. If we look at the New York Mets for example, they reportedly made around $100 million during the 2019 season from tickets sales and other matchday incomes such as consessions and parking sales[[source]](https://www.forbes.com/teams/new-york-mets/?sh=642da0253215). If we can succesfully predict attendance for New York Mets home games then not only can we better estimate the lost revenue this season but we can also determine how to increase revenue in following seasons when fans are back allowed in stadiums again. We will use linear regression and time-series modelling in order to predict our target.
+Major League Baseball is a prime example of how much revenue is being lossed due to the absence of ticket sales. If we look at the New York Mets for example, they reportedly made around $100 million during the 2019 season from tickets sales and other matchday incomes such as consessions and parking sales[[source](https://www.forbes.com/teams/new-york-mets/?sh=642da0253215)]. If we can succesfully predict attendance for New York Mets home games then not only can we better estimate the lost revenue this season but we can also determine how to increase revenue in following seasons when fans are back allowed in stadiums again. We will use linear regression and time-series modelling in order to predict our target.
 
 ## Data
 Our data was collected from the [Baseball Reference](https://www.baseball-reference.com) website. We exported results of each game from the past 10 seasons for the New York Mets. These results include stats like the current winning/losing streak the team is on, the attendance, the away team, how many games behind the mets are etc. These additional stats other than attendance can be used as our exogenous/feature variables for the modelling process. Below is the detailed index of this repository:
@@ -25,11 +25,16 @@ Our data was collected from the [Baseball Reference](https://www.baseball-refere
 Some of the data cleaning measure we took include, removing all away games as we only care about the games played the Citi Field in Queens. Then, we added the year value to the date column indicicating which season a game was played in. We imputed missing attendace values and converted the columns _streak_, _games_behind_ & _d/n_ into numeric types. Furthermore, we engineered new features from the _date_, and _opponent_ columns among others.
 
 ### Visualizations
+We explored the data initialy in order to find possible correlations between the features. We visualized these inter-feature relationships.
 
 <img src="https://github.com/ykfarhan/forecasting-nymets-attendance/blob/main/Visualizations/weekend_night_games.png">
-<img src="https://github.com/ykfarhan/forecasting-nymets-attendance/blob/main/Visualizations/attendance_x_games_behind.png">
-<img src="https://github.com/ykfarhan/forecasting-nymets-attendance/blob/main/Visualizations/avg_attendance_by_team.png">
+Weekned-night games definitely more popular than alternative options.
 <img src="https://github.com/ykfarhan/forecasting-nymets-attendance/blob/main/Visualizations/avg_attendance_daily.png">
+Furthermore, games played during the weekend are popular than weekday games in general.
+<img src="https://github.com/ykfarhan/forecasting-nymets-attendance/blob/main/Visualizations/attendance_x_games_behind.png">
+There seems to be no significant correlation between the how many games behind the team is with attendance. A slightly positive correlation may be present.
+<img src="https://github.com/ykfarhan/forecasting-nymets-attendance/blob/main/Visualizations/avg_attendance_by_team.png">
+Some opponenents are clearly more popular than others such the New York Yankees and the Boston Red Sox.
 
 ### Queries
 ```
