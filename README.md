@@ -19,7 +19,7 @@ Our data was collected from the [Baseball Reference](https://www.baseball-refere
 
 [`Visualizations/`](https://github.com/ykfarhan/forecasting-nymets-attendance/tree/main/Visualizations): For visualizations created in these notebooks:
 
-[`Presentation_mlb.pdf`](https://github.com/ykfarhan/forecasting-nymets-attendance/blob/main/Presentation_mlb.pdf): For the non-technical presentation:
+[`Presentation_nym.pdf`](https://github.com/ykfarhan/forecasting-nymets-attendance/blob/main/Presentation_nym.pdf): For the non-technical presentation:
 
 ### Data Cleaning And Exploration
 Some of the data cleaning measure we took include, removing all away games as we only care about the games played the Citi Field in Queens. Then, we added the year value to the date column indicicating which season a game was played in. We imputed missing attendace values and converted the columns _streak_, _games_behind_ & _d/n_ into numeric types. Furthermore, we engineered new features from the _date_, and _opponent_ columns among others.
@@ -28,7 +28,7 @@ Some of the data cleaning measure we took include, removing all away games as we
 We explored the data initialy in order to find possible correlations between the features. We visualized these inter-feature relationships.
 
 <img src="https://github.com/ykfarhan/forecasting-nymets-attendance/blob/main/Visualizations/weekend_night_games.png">
-Weekned-night games definitely more popular than alternative options.
+Weekned-night games are definitely more popular than alternative options.
 <img src="https://github.com/ykfarhan/forecasting-nymets-attendance/blob/main/Visualizations/avg_attendance_daily.png">
 Furthermore, games played during the weekend are popular than weekday games in general.
 <img src="https://github.com/ykfarhan/forecasting-nymets-attendance/blob/main/Visualizations/attendance_x_games_behind.png">
@@ -54,11 +54,18 @@ We started off with using 50 features for our training data. The K-Best (K=25) m
 | Dummy Regressor | 5987.98
 | Linear Regression | 4763.06
 | **K-Best** | **4691.09**
-| Polynomial Lasso | 42548.70
+| Polynomial Lasso | 6130.96
 | Polynomial K-Best | 4719.73
 
+Our best model overall was the K-Best Linear Regression model. It achieved a mean absolute error of ~2000 on the holdout data. That means for every game it predicted attendace for, it was off by about 2000 tickets. Which is 7% of average tickets sold per game on the entire data set. This may indicate that that our model is better at predicting single seasons than multiples at once, which is why it has better a lot better scores than the training data.
+| Best Model | Holdout RMSE | Holdout MAE |
+| --- | --- | --- |
+| K-Best | 2947 | 2119
+
+<img src="https://github.com/ykfarhan/forecasting-nymets-attendance/blob/main/Visualizations/feature_imp_kbest.png">
+
 ### Time-Series 
-We started off with a simple ARMA model as our baseline and kept increasing the complexity of the models. We used subsets of the best features from our regression model as exogenoues variables for the ARIMAX and SARIMAX models. Although, our RMSE scores on these models were not as good as our regression models.
+We started off with a simple ARMA model as our baseline and kept increasing the complexity of the models. We used subsets of the best features from our regression model as exogenoues variables for the ARIMAX and SARIMAX models. The exogenous variables included the time/day of the game, the opponent and the teams form etc. Simply looking at attendance as a series prevents us from looking at all the available information affecting ticket sales, this is why our RMSE scores improved after introducing the exogenous variables. However, our RMSE scores on these models were not as good as our regression models'.
 | Model | RMSE |
 | --- | --- |
 | Baseline (ARMA) | 6575.41
@@ -66,13 +73,6 @@ We started off with a simple ARMA model as our baseline and kept increasing the 
 | SARIMAX #1 | 5827.97
 | SARIMAX #2 | 5326.13
 | **SARIMAX #5** | **5006.82**
-
-Our best model overall was the K-Best Linear Regression model. It achieved a mean absolute error of ~2000 on the holdout data. That means for every game it predicted attendace for, it was off by about 2000 tickets. Which is 7% of average tickets sold on the entire data set. This may indicate that that our model is better at predicting single seasons than multiples at once, which is why it has better a lot better scores than the training data.
-| Best Model | Holdout RMSE | Holdout MAE |
-| --- | --- | --- |
-| K-Best | 2947 | 2119
-
-<img src="https://github.com/ykfarhan/forecasting-nymets-attendance/blob/main/Visualizations/feature_imp_kbest.png">
 
 ### Post-Evaluation Analysis
 Looking at the feature co-efficients of our K-best model, we can determine how each feature affects ticket sales.
