@@ -64,6 +64,14 @@ Our best model overall was the K-Best Linear Regression model. It achieved a mea
 
 <img src="https://github.com/ykfarhan/forecasting-nymets-attendance/blob/main/Visualizations/feature_imp_kbest.png">
 
+### Post-Evaluation Analysis
+Looking at the feature co-efficients of our K-best model, we can determine how each feature affects ticket sales.
+
+* Some of our initial analysis from data exploration have been proven right.
+* Weekday games and games played during may and september have a negative effect on attendance.
+* Weekend night games significantly boost tickets sales. As does playing against the Yankees and the Nationals.
+* Games against Cincinnati, Miami and Minnesota result in reduced ticket sales.
+
 ### Time-Series 
 We started off with a simple ARMA model as our baseline and kept increasing the complexity of the models. We used subsets of the best features from our regression model as exogenoues variables for the ARIMAX and SARIMAX models. The exogenous variables included the time/day of the game, the opponent and the teams form etc. Simply looking at attendance as a series prevents us from looking at all the available information affecting ticket sales, this is why our RMSE scores improved after introducing the exogenous variables. However, our RMSE scores on these models were not as good as our regression models'.
 | Model | RMSE |
@@ -73,14 +81,6 @@ We started off with a simple ARMA model as our baseline and kept increasing the 
 | SARIMAX #1 | 5827.97
 | SARIMAX #2 | 5326.13
 | **SARIMAX #5** | **5006.82**
-
-### Post-Evaluation Analysis
-Looking at the feature co-efficients of our K-best model, we can determine how each feature affects ticket sales.
-
-* Some of our initial analysis from data exploration have been proven right.
-* Weekday games and games played during may and september have a negative effect on attendance.
-* Weekend night games significantly boost tickets sales. As does playing against the Yankees and the Nationals.
-* Games against Cincinnati, Miami and Minnesota result in reduced ticket sales.
 
 ## Conclusion
 * We can use the data from the 2020 season to calculate lost revenue from the predicted attendance.
